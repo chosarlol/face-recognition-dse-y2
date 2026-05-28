@@ -18,8 +18,8 @@ BATCH_SIZE = 32
 EPOCHS = 50
 LEARNING_RATE = 0.001
 
-TRAIN_DIR = "split_dataset_c/train"
-VAL_DIR = "split_dataset_c/validation"
+TRAIN_DIR = "split_dataset/train"
+VAL_DIR = "split_dataset/validation"
 
 MODEL_SAVE_PATH = "deeplface/facenet_model7.h5"
 LABELS_SAVE_PATH = "deeplface/class_names.txt"

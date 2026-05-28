@@ -5,7 +5,7 @@ import time
 def capture_dataset():
     # 1. Load resources
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     # 2. Setup directory
     save_dir = "face_dataset"
@@ -14,7 +14,7 @@ def capture_dataset():
 
     # 3. Setup counters and timers
     count = 0
-    max_images = 30
+    max_images = 50
     last_capture_time = time.time()
     capture_interval = 1.0  # 1 second
 
