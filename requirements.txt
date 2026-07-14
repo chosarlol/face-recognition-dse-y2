@@ -1,0 +1,20 @@
+# Root env — covers capture.py, ml-lbph/, dl-facenet (dl-resnetv2/), and the
+# shared liveness/ module they both use.
+# Do NOT install insightface here — see dl-arcface/requirements.txt for why
+# ArcFace needs a separate environment. onnxruntime alone (for liveness/) is
+# safe here — it doesn't force a numpy/OpenCV upgrade like insightface does.
+#
+# Setup:
+#   python -m venv env
+#   env\Scripts\activate        (Windows)   or   source env/bin/activate (Mac/Linux)
+#   pip install -r requirements.txt
+
+opencv-contrib-python==4.11.0.86
+numpy==1.26.4        # facenet-pytorch requires numpy<2.0
+torch==2.2.2
+torchvision==0.17.2
+facenet-pytorch==2.6.0
+scikit-learn==1.7.2
+tqdm==4.67.3
+pillow==12.2.0
+onnxruntime==1.23.2   # for liveness/ (MiniFASNet-V2 anti-spoofing)

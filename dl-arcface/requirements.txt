@@ -1,0 +1,20 @@
+# Separate env required — do NOT install these into the root env (see
+# ../requirements.txt). insightface pulls in numpy>=2.0, which breaks
+# facenet-pytorch, and a second OpenCV build that corrupts ml-lbph's
+# cv2.face module. Keep dl-arcface fully isolated instead.
+#
+# Setup:
+#   python -m venv env-arcface
+#   env-arcface\Scripts\activate        (Windows)   or   source env-arcface/bin/activate (Mac/Linux)
+#   pip install -r dl-arcface/requirements.txt
+#
+# The buffalo_l model pack (~280MB) auto-downloads to ~/.insightface/ the
+# first time dl-arcface/train.py or webcam.py runs.
+
+opencv-contrib-python==4.11.0.86   # pinned: OpenCV 5.x dropped cv2.dnn.readNetFromCaffe
+numpy==2.2.6
+insightface==1.0.1
+onnxruntime==1.23.2
+scikit-learn==1.7.2
+tqdm==4.68.4
+pillow==12.3.0

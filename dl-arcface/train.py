@@ -190,10 +190,26 @@ def train_svm(embeddings, labels):
     return svm, le
 
 
-def save_artifacts(svm, le, embeddings, labels):
+def compute_centroids(embeddings, labels):
+    """Per-class mean of L2-normalized embeddings, re-normalized.
+
+    webcam.py uses this as a second gate alongside the SVM probability:
+    the SVM always forces a pick between known classes even for a total
+    stranger, so we also require the live embedding to be reasonably
+    close (cosine sim) to the predicted class's centroid.
+    """
+    X = normalize(embeddings)
+    centroids = {}
+    for label in sorted(set(labels)):
+        idx = [i for i, l in enumerate(labels) if l == label]
+        centroids[label] = normalize(X[idx].mean(axis=0, keepdims=True))[0]
+    return centroids
+
+
+def save_artifacts(svm, le, centroids, embeddings, labels):
     os.makedirs(OUT_DIR, exist_ok=True)
     with open(MODEL_OUT, "wb") as f:
-        pickle.dump({"svm": svm, "label_encoder": le}, f)
+        pickle.dump({"svm": svm, "label_encoder": le, "centroids": centroids}, f)
     print(f"[INFO] Classifier saved → {MODEL_OUT}")
 
     with open(EMBED_OUT, "wb") as f:
@@ -212,7 +228,8 @@ def main():
         return
 
     svm, le = train_svm(embeddings, labels)
-    save_artifacts(svm, le, embeddings, labels)
+    centroids = compute_centroids(embeddings, labels)
+    save_artifacts(svm, le, centroids, embeddings, labels)
     print("\n✅ Done! Now run:  python dl-arcface/webcam.py")
 
 
