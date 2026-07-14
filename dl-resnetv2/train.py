@@ -1,12 +1,13 @@
 import os
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
-from tensorflow.keras.applications import InceptionResNetV2
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications.inception_resnet_v2 import preprocess_input
-from tensorflow.keras.callbacks import EarlyStopping
+from keras.models import Model
+from keras.layers import Dense, GlobalAveragePooling2D
+from keras.applications import InceptionResNetV2
+from keras.optimizers import Adam
+from keras.preprocessing.image import ImageDataGenerator
+from keras.applications.inception_resnet_v2 import preprocess_input
+from keras.callbacks import EarlyStopping
+
 
 from utils import save_class_names
 
@@ -54,6 +55,7 @@ val_generator = val_datagen.flow_from_directory(
     batch_size=BATCH_SIZE,
     class_mode='categorical'
 )
+
 
 NUM_CLASSES = train_generator.num_classes
 
